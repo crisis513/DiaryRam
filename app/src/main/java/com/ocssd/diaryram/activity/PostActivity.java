@@ -1,4 +1,4 @@
-package com.ocssd.diaryram;
+package com.ocssd.diaryram.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ocssd.diaryram.fragment.MainFragment;
+import com.ocssd.diaryram.R;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;

@@ -1,10 +1,12 @@
-package com.ocssd.diaryram;
+package com.ocssd.diaryram.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.ocssd.diaryram.R;
 
 public class MainFragment extends Fragment {
 

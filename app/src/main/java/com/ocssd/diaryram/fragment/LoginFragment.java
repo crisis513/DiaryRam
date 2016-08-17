@@ -1,4 +1,4 @@
-package com.ocssd.diaryram;
+package com.ocssd.diaryram.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,8 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.ocssd.diaryram.R;
+import com.ocssd.diaryram.activity.MainActivity;
 
 
 public class LoginFragment extends Fragment {

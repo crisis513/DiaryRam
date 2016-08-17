@@ -21,7 +21,8 @@
             android:layout_height="100dp"
             android:background="@drawable/background_shape_cv_logo"
             android:layout_margin="24dp"
-            android:contentDescription="fb_profile" />
+            android:contentDescription="fb_profile"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -126,6 +127,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/btn_user"
                     android:text="회원정보"
                     />
 
@@ -141,11 +143,12 @@
         android:text="Name"
         android:textSize="16dp"
         android:textColor="@android:color/black"
-        android:id="@+id/userName"
+        android:id="@+id/txt_user_name"
         android:layout_below="@+id/linearLayout"
         android:layout_marginLeft="16dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -153,10 +156,28 @@
         android:text="Introduce!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         android:textSize="16dp"
         android:textColor="@android:color/black"
-        android:layout_below="@+id/userName"
+        android:layout_below="@+id/txt_user_name"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
+
+    <!--<android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/white"/>-->
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/tabbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        tools:context=".ThreeButtonsActivity">
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>

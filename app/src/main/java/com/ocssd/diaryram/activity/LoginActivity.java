@@ -1,4 +1,4 @@
-package com.ocssd.diaryram;
+package com.ocssd.diaryram.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.ocssd.diaryram.fragment.LoginFragment;
+import com.ocssd.diaryram.R;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.ocssd.diaryram;
+package com.ocssd.diaryram.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
+import com.ocssd.diaryram.R;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

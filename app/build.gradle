@@ -32,5 +32,4 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.8.2'
     compile 'com.yalantis:contextmenu:1.0.7'
     compile 'com.roughike:bottom-bar:1.2.1'
-    compile 'me.grantland:autofittextview:0.2.+'
 }

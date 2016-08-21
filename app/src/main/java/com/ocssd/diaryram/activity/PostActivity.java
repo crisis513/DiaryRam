@@ -85,6 +85,7 @@ public class PostActivity extends AppCompatActivity implements OnMenuItemClickLi
         menuObjects.add(addFr);
         menuObjects.add(addFav);
         menuObjects.add(block);
+
         return menuObjects;
     }
 

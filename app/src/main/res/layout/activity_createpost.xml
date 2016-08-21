@@ -7,14 +7,6 @@
     <include layout="@layout/toolbar"
         android:id="@+id/include" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="#3F0099"
-        android:text="이모티콘 선택하기"
-        android:textColor="#FFFFFF" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -39,15 +31,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
+        android:layout_marginLeft="8dp"
         android:orientation="vertical" >
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="#3F0099"
-            android:text="갤러리, 이미지 프로그램에서 사진 선택하기"
-            android:textColor="#FFFFFF" />
+            android:text="Select Image"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

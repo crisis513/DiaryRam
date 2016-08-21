@@ -1,27 +1,18 @@
 package com.ocssd.diaryram.activity;
 
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.Profile;
-import com.ocssd.diaryram.CircleTransform;
-import com.ocssd.diaryram.ImageAdapter;
 import com.ocssd.diaryram.R;
+import com.ocssd.diaryram.fragment.HashFragment;
+import com.ocssd.diaryram.fragment.HomeFragment;
+import com.ocssd.diaryram.fragment.ProfileFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarBadge;
 import com.roughike.bottombar.OnMenuTabSelectedListener;
-import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initToolbar();
-        initUI();
-
-        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.tabbar);
 
         BottomBar bottomBar = BottomBar.attach(this, savedInstanceState);
         bottomBar.setItemsFromMenu(R.menu.menu_tabbar, new OnMenuTabSelectedListener() {
@@ -44,11 +32,16 @@ public class MainActivity extends AppCompatActivity {
             public void onMenuItemSelected(int itemId) {
                 switch (itemId) {
                     case R.id.home_item:
-
+                        HomeFragment homeFragment = new HomeFragment();
+                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, homeFragment).commit();
                         break;
                     case R.id.hash_item:
+                        HashFragment hashFragment = new HashFragment();
+                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, hashFragment).commit();
                         break;
                     case R.id.profile_item:
+                        ProfileFragment profileFragment = new ProfileFragment();
+                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, profileFragment).commit();
                         break;
                 }
             }
@@ -83,45 +76,6 @@ public class MainActivity extends AppCompatActivity {
         //unreadMessages.setAutoShowAfterUnSelection(true);
     }
 
-    private void initUI() {
-        Profile profile = Profile.getCurrentProfile();
-        ImageView iv_logo = (ImageView) findViewById(R.id.cv_logo);
-        Picasso.with(this)
-                .load(profile.getProfilePictureUri(150, 150).toString())
-                .transform(new CircleTransform())
-                .into(iv_logo);
-        TextView userName = (TextView) findViewById(R.id.txt_user_name);
-        userName.setText(profile.getName());
-
-        GridView gridView = (GridView) findViewById(R.id.grid_view);
-
-        // Instance of ImageAdapter Class
-        gridView.setAdapter(new ImageAdapter(this));
-
-        /**
-         * On Click event for Single Gridview Item
-         * */
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), PostActivity.class);
-
-                i.putExtra("id", position);
-                startActivity(i);
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF007F")));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
     private void initToolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView mToolBarTextView = (TextView) findViewById(R.id.text_view_toolbar_title);
@@ -131,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false); // remove the left caret
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        mToolBarTextView.setText("DiaryRam");
+        mToolBarTextView.setText("Diaryram");
     }
 
 }

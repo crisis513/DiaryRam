@@ -1,47 +1,30 @@
 package com.ocssd.diaryram.activity;
 
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ocssd.diaryram.R;
 
-import me.grantland.widget.AutofitHelper;
+import java.util.ArrayList;
+
 
 public class CreatePostNextActivity extends AppCompatActivity{
 
-    private TextView mAutofitOutput;
+    ArrayList<String> hashList = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createpostnext);
-
         initToolbar();
 
-        mAutofitOutput = (TextView)findViewById(R.id.output_autofit);
-        ((EditText)findViewById(R.id.input)).addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mAutofitOutput.setText(charSequence);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
     }
 
     private void initToolbar() {
@@ -56,9 +39,28 @@ public class CreatePostNextActivity extends AppCompatActivity{
         mToolBarTextView.setText("CreatePost");
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+    public void addButton(View view) {
+        EditText inputHash = (EditText) findViewById(R.id.input_hash);
+        String hash = inputHash.getText().toString();
+
+        if(!hash.equals("")) {
+            hashList.add(hash);
+
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.hashTextLayout);
+            TextView textView = new TextView(this);
+            for( int i = 0; i < hashList.size(); i++ ) {
+                textView.setText("#" + hashList.get(i) + " ");
+            }
+            linearLayout.addView(textView);
+            inputHash.setText("");
+        }
+    }
+
+    public void prevButtonClick(View view) {
         finish();
+    }
+
+    public void nextButtonClick(View view) {
+        Toast.makeText(this, "포스트 만들어야됨!", Toast.LENGTH_SHORT).show();
     }
 }

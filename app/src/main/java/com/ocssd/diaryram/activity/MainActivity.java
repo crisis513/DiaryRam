@@ -1,5 +1,8 @@
 package com.ocssd.diaryram.activity;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initToolbar();
+        clickTabBarItem(new HomeFragment());
 
         BottomBar bottomBar = BottomBar.attach(this, savedInstanceState);
         bottomBar.setItemsFromMenu(R.menu.menu_tabbar, new OnMenuTabSelectedListener() {
@@ -32,16 +36,16 @@ public class MainActivity extends AppCompatActivity {
             public void onMenuItemSelected(int itemId) {
                 switch (itemId) {
                     case R.id.home_item:
-                        HomeFragment homeFragment = new HomeFragment();
-                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, homeFragment).commit();
+                        Fragment homeFragment = new HomeFragment();
+                        clickTabBarItem(homeFragment);
                         break;
                     case R.id.hash_item:
-                        HashFragment hashFragment = new HashFragment();
-                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, hashFragment).commit();
+                        Fragment hashFragment = new HashFragment();
+                        clickTabBarItem(hashFragment);
                         break;
                     case R.id.profile_item:
-                        ProfileFragment profileFragment = new ProfileFragment();
-                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, profileFragment).commit();
+                        Fragment profileFragment = new ProfileFragment();
+                        clickTabBarItem(profileFragment);
                         break;
                 }
             }
@@ -88,4 +92,10 @@ public class MainActivity extends AppCompatActivity {
         mToolBarTextView.setText("Diaryram");
     }
 
+    private void clickTabBarItem(Fragment fr) {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_main, fr);
+        fragmentTransaction.commit();
+    }
 }

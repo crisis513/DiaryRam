@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/fragment_main"
-        android:name="com.ocssd.diaryram.fragment.HomeFragment"
+        android:name="com.ocssd.diaryram.fragment.BackgroundFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/include"

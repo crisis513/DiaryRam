@@ -33,7 +33,7 @@ public class CreatePostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_createpost);
         initToolbar();
 
-        EmoticonAdapter emoticonAdapter = new EmoticonAdapter(this);
+        emoticonAdapter = new EmoticonAdapter(this);
         gridView = (GridView) findViewById(R.id.grid_view);
         gridView.setAdapter(emoticonAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

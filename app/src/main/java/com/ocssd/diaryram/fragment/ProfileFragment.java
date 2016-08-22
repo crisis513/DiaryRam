@@ -1,15 +1,16 @@
 package com.ocssd.diaryram.fragment;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.ocssd.diaryram.ImageAdapter;
 import com.ocssd.diaryram.R;
 import com.ocssd.diaryram.activity.CreatePostActivity;
 import com.ocssd.diaryram.activity.PostActivity;
+import com.ocssd.diaryram.activity.UserInfoActivity;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
@@ -43,6 +45,15 @@ public class ProfileFragment extends Fragment {
                 .into(iv_logo);
         TextView userName = (TextView) view.findViewById(R.id.txt_user_name);
         userName.setText(profile.getName());
+
+        Button infoBtn = (Button) view.findViewById(R.id.info_btn);
+        infoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         GridView gridView = (GridView) view.findViewById(R.id.grid_view);
 
@@ -72,4 +83,5 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
 }

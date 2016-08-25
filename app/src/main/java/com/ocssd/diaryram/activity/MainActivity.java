@@ -3,11 +3,15 @@ package com.ocssd.diaryram.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ocssd.diaryram.R;
 import com.ocssd.diaryram.fragment.HashFragment;
@@ -16,6 +20,19 @@ import com.ocssd.diaryram.fragment.ProfileFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarBadge;
 import com.roughike.bottombar.OnMenuTabSelectedListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -98,4 +115,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragment_main, fr);
         fragmentTransaction.commit();
     }
+
 }

@@ -14,7 +14,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/photo"
             android:scaleType="fitXY" />
 
         <LinearLayout
@@ -30,15 +29,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/title_text_size"
-                android:text="@string/title"
                 android:layout_marginBottom="@dimen/main_screen_side_padding" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/menu_text_size"
-                android:text="@string/text" />
+                android:textSize="@dimen/menu_text_size" />
         </LinearLayout>
 
     </LinearLayout>

@@ -16,8 +16,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ocssd.diaryram.fragment.MainFragment;
 import com.ocssd.diaryram.R;
+import com.ocssd.diaryram.fragment.PostFragment;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
@@ -39,10 +39,11 @@ public class PostActivity extends AppCompatActivity implements OnMenuItemClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        fragmentManager = getSupportFragmentManager();
         initToolbar();
         initMenuFragment();
-        addFragment(new MainFragment(), true, R.id.container);
+
+        fragmentManager = getSupportFragmentManager();
+        addFragment(new PostFragment(), true, R.id.container);
     }
 
     private void initMenuFragment() {
@@ -61,10 +62,7 @@ public class PostActivity extends AppCompatActivity implements OnMenuItemClickLi
         MenuObject close = new MenuObject();
         close.setResource(R.drawable.icn_close);
 
-        MenuObject send = new MenuObject("Send message");
-        send.setResource(R.drawable.icn_1);
-
-        MenuObject like = new MenuObject("Like profile");
+        MenuObject like = new MenuObject("Like post");
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icn_2);
         like.setBitmap(b);
 
@@ -80,7 +78,6 @@ public class PostActivity extends AppCompatActivity implements OnMenuItemClickLi
         block.setResource(R.drawable.icn_5);
 
         menuObjects.add(close);
-        menuObjects.add(send);
         menuObjects.add(like);
         menuObjects.add(addFr);
         menuObjects.add(addFav);
@@ -159,4 +156,5 @@ public class PostActivity extends AppCompatActivity implements OnMenuItemClickLi
     public void onMenuItemLongClick(View clickedView, int position) {
         Toast.makeText(this, "Long clicked on position: " + position, Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -84,10 +84,11 @@ public class ImageAdapter extends BaseAdapter {
             return bitmap;
         }
 
-
         @Override
         protected void onPostExecute(Bitmap result) {
             mView.setImageBitmap(result);
         }
+
     }
+
 }

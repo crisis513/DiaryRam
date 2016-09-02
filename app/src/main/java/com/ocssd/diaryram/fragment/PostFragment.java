@@ -1,6 +1,8 @@
 package com.ocssd.diaryram.fragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.ocssd.diaryram.R;
 import com.ocssd.diaryram.dto.Post;
+import com.ocssd.diaryram.dto.UploadPost;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 
 import org.json.JSONArray;
@@ -42,15 +45,16 @@ public class PostFragment extends Fragment {
 
     private List<Post> postList;
     private Post post = new Post();
-    private ImageView photoImg;
-    private TextView titleTxt, contentTxt;
+    private UploadPost uploadPost = new UploadPost();
+    private ImageView photoImg, emoticonImg;
+    private TextView titleTxt, contentTxt, emoticonTxt;
 
     private final static String TAG = "PostFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        new AsyncFetch().execute();
+        View rootView = inflater.inflate(R.layout.fragment_post, container, false);
+
         return rootView;
     }
 
@@ -58,8 +62,52 @@ public class PostFragment extends Fragment {
     public void onViewCreated(View view,  Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         photoImg = (ImageView) view.findViewById(R.id.photo_iv);
+        emoticonImg = (ImageView) view.findViewById(R.id.emoticon_iv);
+        emoticonTxt = (TextView) view.findViewById(R.id.emoticon_txt);
         titleTxt = (TextView) view.findViewById(R.id.title_txt);
         contentTxt = (TextView) view.findViewById(R.id.content_txt);
+
+        // TODO if문 조건이 재대로 안먹음 젠장할.....
+        Bundle extra = getArguments();
+        String extraText = extra.getString("activity");
+        if (extraText != null && extraText.equals("PostActivity")) {
+            uploadPost.setmTitle(extra.getString("post_title"));
+            uploadPost.setmText(extra.getString("post_text"));
+            uploadPost.setmHash(extra.getStringArrayList("post_hash"));
+            uploadPost.setmEmoticon(extra.getInt("post_emoticon"));
+
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0; i < uploadPost.getmHash().size(); i++ ) {
+                sb.append("#" + uploadPost.getmHash().get(i) + " ");
+            }
+            titleTxt.setText(uploadPost.getmTitle());
+            contentTxt.setText(uploadPost.getmText() + "\n\n\n" + sb);
+            setEmoticon(uploadPost.getmEmoticon());
+        } else if (extraText != null && extraText.equals("AsyncFetch")) {
+            new AsyncFetch().execute();
+        }
+
+    }
+
+    private void setEmoticon(int emoticonId) {
+        emoticonTxt.setText("Emoticon: ");
+        switch (emoticonId) {
+            case 1:
+                emoticonImg.setImageResource(R.drawable.happy);
+                break;
+            case 2:
+                emoticonImg.setImageResource(R.drawable.sad);
+                break;
+            case 3:
+                emoticonImg.setImageResource(R.drawable.angry);
+                break;
+            case 4:
+                emoticonImg.setImageResource(R.drawable.soso);
+                break;
+            case 5:
+                emoticonImg.setImageResource(R.drawable.heart);
+                break;
+        }
     }
 
     private class AsyncFetch extends AsyncTask<String, String, String> {
@@ -81,7 +129,7 @@ public class PostFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             try {
-                url = new URL("http://diaryram.herokuapp.com/posts/" + "8" + ".json");
+                url = new URL("http://diaryram.herokuapp.com/posts/" + "2" + ".json");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return e.toString();
@@ -146,10 +194,35 @@ public class PostFragment extends Fragment {
             } catch (JSONException e) {
                 Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
             }
+
             titleTxt.setText(post.getmTitle());
             contentTxt.setText(post.getmText());
-            photoImg.setImageURI(Uri.parse(post.getmPhoto()));
+            setEmoticon(post.getmEmoticon());
+            new ImageDownloadTask(photoImg).execute();
         }
+    }
+
+    class ImageDownloadTask extends AsyncTask<Void, Integer, Bitmap> {
+        private ImageView mView;
+        ImageDownloadTask(ImageView view) {
+            mView = view;
+        }
+        @Override
+        protected Bitmap doInBackground(Void... params) {
+            Bitmap bitmap = null;
+            try {
+                bitmap = BitmapFactory.decodeStream((InputStream)new URL(post.getmPhoto()).getContent());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            mView.setImageBitmap(result);
+        }
+
     }
 
 }

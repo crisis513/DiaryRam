@@ -53,6 +53,9 @@ public class ProfileFragment extends Fragment {
     private ArrayList<String> urlString = new ArrayList<>();
     private List<Post> postList;
     private Post postView;
+    private TextView postCount;
+
+    public TextView introduceTxt;
 
     private static final String TAG = "ProfileFragment";
 
@@ -66,6 +69,8 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         new AsyncFetch().execute();
+
+        postCount = (TextView) view.findViewById(R.id.post_count_txt);
 
         Profile profile = Profile.getCurrentProfile();
         ImageView ivLogo = (ImageView) view.findViewById(R.id.cv_logo);
@@ -81,7 +86,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), UserInfoActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1000);
             }
         });
 
@@ -184,8 +189,9 @@ public class ProfileFragment extends Fragment {
             postList = new ArrayList<>();
 
             pdLoading.dismiss();
+            JSONArray jArray = null;
             try {
-                JSONArray jArray = new JSONArray(result);
+                jArray = new JSONArray(result);
 
                 // Extract data from json and store into ArrayList as class objects
                 for(int i=0; i<jArray.length(); i++) {
@@ -216,7 +222,14 @@ public class ProfileFragment extends Fragment {
             }
             // Instance of ImageAdapter Class
             gridView.setAdapter(new ImageAdapter(getActivity(), urlString));
+            postCount.setText("" + jArray.length());
         }
     }
 
+    /*@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String introduceText = data.getStringExtra("introduce");
+        introduceTxt.setText(introduceText);
+    }*/
 }

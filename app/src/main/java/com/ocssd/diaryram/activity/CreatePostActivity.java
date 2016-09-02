@@ -7,25 +7,31 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ocssd.diaryram.EmoticonAdapter;
 import com.ocssd.diaryram.R;
+import com.ocssd.diaryram.dto.Post;
+import com.ocssd.diaryram.dto.UploadPost;
 
 
 public class CreatePostActivity extends AppCompatActivity {
 
     private GridView gridView;
     private EmoticonAdapter emoticonAdapter;
-    private ImageView imgview;
+    private ImageView imgView;
+    private UploadPost post = new UploadPost();
 
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLERY = 2;
+    private static final String TAG = "CreatePostActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +49,11 @@ public class CreatePostActivity extends AppCompatActivity {
                 imageView.setImageResource(EmoticonAdapter.mThumbIds[position]);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 imageView.setLayoutParams(new GridView.LayoutParams(100,100));
+                post.setmEmoticon(position + 1);
             }
         });
 
-        imgview = (ImageView) findViewById(R.id.imageView1);
+        imgView = (ImageView) findViewById(R.id.imageView1);
         Button buttonCamera = (Button) findViewById(R.id.btn_take_camera);
         Button buttonGallery = (Button) findViewById(R.id.btn_select_gallery);
 
@@ -87,8 +94,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 intent.putExtra("outputY", 150);
                 try {
                     intent.putExtra("return-data", true);
-                    startActivityForResult(Intent.createChooser(intent,
-                            "Complete action using"), PICK_FROM_GALLERY);
+                    startActivityForResult(Intent.createChooser(intent, "Complete action using"), PICK_FROM_GALLERY);
                 } catch (ActivityNotFoundException e) {
                     // Do nothing for now
                 }
@@ -101,16 +107,18 @@ public class CreatePostActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             if (extras != null) {
                 Bitmap photo = extras.getParcelable("data");
-                imgview.setImageBitmap(photo);
+                imgView.setImageBitmap(photo);
+                post.setmPhoto(photo);
             }
-        }
-        if (requestCode == PICK_FROM_GALLERY) {
+        } else if (requestCode == PICK_FROM_GALLERY) {
             Bundle extras2 = data.getExtras();
             if (extras2 != null) {
                 Bitmap photo = extras2.getParcelable("data");
-                imgview.setImageBitmap(photo);
+                imgView.setImageBitmap(photo);
+                post.setmPhoto(photo);
             }
         }
+
     }
 
 
@@ -126,12 +134,21 @@ public class CreatePostActivity extends AppCompatActivity {
         mToolBarTextView.setText("CreatePost");
     }
 
-    public void prevButtonClick(View view) {
+    public void prevClick(View view) {
         finish();
     }
 
-    public void nextButtonClick(View view) {
-        Intent intent = new Intent(this, CreatePostNextActivity.class);
-        startActivity(intent);
+    public void nextClick(View view) {
+        if (post.getmEmoticon() == 0) {
+            Toast.makeText(this, "이모티콘을 선택해주세요", Toast.LENGTH_SHORT).show();
+        } else if (post.getmPhoto() == null) {
+            Toast.makeText(this, "이미지를 선택해주세요", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(this, CreatePostNextActivity.class);
+            intent.putExtra("post_emotion", (int) post.getmEmoticon());
+            intent.putExtra("post_photo", (Bitmap) post.getmPhoto());
+            startActivity(intent);
+        }
     }
+
 }

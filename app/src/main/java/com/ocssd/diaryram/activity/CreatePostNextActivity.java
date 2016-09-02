@@ -1,5 +1,7 @@
 package com.ocssd.diaryram.activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,14 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ocssd.diaryram.R;
+import com.ocssd.diaryram.dto.UploadPost;
 
 import java.util.ArrayList;
 
 
 public class CreatePostNextActivity extends AppCompatActivity{
 
-    ArrayList<String> hashList = new ArrayList<String>();
-
+    private ArrayList<String> hashList = new ArrayList<String>();
+    private UploadPost post = new UploadPost();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,9 @@ public class CreatePostNextActivity extends AppCompatActivity{
         setContentView(R.layout.activity_createpostnext);
         initToolbar();
 
+        Intent intent = getIntent();
+        post.setmPhoto((Bitmap) intent.getExtras().get("post_photo"));
+        post.setmEmoticon(intent.getExtras().getInt("post_emotion"));
     }
 
     private void initToolbar() {
@@ -48,7 +54,7 @@ public class CreatePostNextActivity extends AppCompatActivity{
 
             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.hashTextLayout);
             TextView textView = new TextView(this);
-            for( int i = 0; i < hashList.size(); i++ ) {
+            for(int i = 0; i < hashList.size(); i++ ) {
                 textView.setText("#" + hashList.get(i) + " ");
             }
             linearLayout.addView(textView);
@@ -56,11 +62,32 @@ public class CreatePostNextActivity extends AppCompatActivity{
         }
     }
 
-    public void prevButtonClick(View view) {
+    public void prevClick(View view) {
         finish();
     }
 
-    public void nextButtonClick(View view) {
-        Toast.makeText(this, "포스트 만들어야됨!", Toast.LENGTH_SHORT).show();
+    public void nextClick(View view) {
+        EditText titleEdit = (EditText) findViewById(R.id.title_txt);
+        EditText contentEdit = (EditText) findViewById(R.id.content_txt);
+
+        post.setmTitle(titleEdit.getText().toString());
+        post.setmText(contentEdit.getText().toString());
+        post.setmHash(hashList);
+
+        Intent intent = new Intent(this, PostActivity.class);
+        intent.putExtra("post_title", post.getmTitle());
+        intent.putExtra("post_text", post.getmText());
+        intent.putExtra("post_emotion", post.getmEmoticon());
+        intent.putExtra("post_photo", post.getmPhoto());
+        intent.putStringArrayListExtra("post_hash", post.getmHash());
+        intent.putExtra("activity", "CreatePostNextActivity");
+        startActivity(intent);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
 }

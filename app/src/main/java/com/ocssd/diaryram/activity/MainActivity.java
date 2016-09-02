@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         //bottomBar.setTypeFace("MyFont.ttf");
 
         // Make a Badge for the first tab, with red background color and a value of "4".
-        BottomBarBadge unreadMessages = bottomBar.makeBadgeForTabAt(1, "#E91E63", 4);
+        BottomBarBadge unreadMessages = bottomBar.makeBadgeForTabAt(2, "#E91E63", 2);
 
         // Control the badge's visibility
         unreadMessages.show();

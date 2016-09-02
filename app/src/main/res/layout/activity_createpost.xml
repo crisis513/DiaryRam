@@ -72,6 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:scaleType="fitCenter" />
 
     </LinearLayout>
@@ -79,23 +81,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_margin="16dp">
 
-        <ImageButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_prev"
+            android:text="prev"
+            android:textSize="24sp"
+            android:textStyle="bold"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:onClick="prevButtonClick" />
+            android:onClick="prevClick" />
 
-        <ImageButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_next"
+            android:text="next"
+            android:textSize="24sp"
+            android:textStyle="bold"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:onClick="nextButtonClick" />
+            android:onClick="nextClick" />
 
     </RelativeLayout>
 

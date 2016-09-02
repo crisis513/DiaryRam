@@ -13,8 +13,8 @@ public class EmoticonAdapter extends BaseAdapter {
 
     // Keep all Images in array
     public static Integer[] mThumbIds = {
-            R.drawable.angry, R.drawable.happy,
-            R.drawable.sad, R.drawable.soso,
+            R.drawable.happy, R.drawable.sad,
+            R.drawable.angry, R.drawable.soso,
             R.drawable.heart
     };
 

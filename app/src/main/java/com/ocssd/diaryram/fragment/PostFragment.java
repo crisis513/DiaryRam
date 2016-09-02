@@ -67,7 +67,7 @@ public class PostFragment extends Fragment {
         titleTxt = (TextView) view.findViewById(R.id.title_txt);
         contentTxt = (TextView) view.findViewById(R.id.content_txt);
 
-        // TODO if문 조건이 재대로 안먹음 젠장할.....
+        /*// TODO if문 조건이 재대로 안먹음 젠장할.....
         Bundle extra = getArguments();
         String extraText = extra.getString("activity");
         if (extraText != null && extraText.equals("PostActivity")) {
@@ -85,8 +85,8 @@ public class PostFragment extends Fragment {
             setEmoticon(uploadPost.getmEmoticon());
         } else if (extraText != null && extraText.equals("AsyncFetch")) {
             new AsyncFetch().execute();
-        }
-
+        }*/
+        new AsyncFetch().execute();
     }
 
     private void setEmoticon(int emoticonId) {
@@ -129,7 +129,7 @@ public class PostFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             try {
-                url = new URL("http://diaryram.herokuapp.com/posts/" + "2" + ".json");
+                url = new URL("http://diaryram.herokuapp.com/posts/" + "1" + ".json");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return e.toString();

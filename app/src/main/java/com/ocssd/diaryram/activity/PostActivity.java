@@ -46,7 +46,7 @@ public class PostActivity extends AppCompatActivity implements OnMenuItemClickLi
         initToolbar();
         initMenuFragment();
 
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
         post.setmTitle(intent.getExtras().getString("post_title"));
         post.setmText(intent.getExtras().getString("post_text"));
         post.setmPhoto((Bitmap) intent.getExtras().get("post_photo"));
@@ -67,9 +67,9 @@ public class PostActivity extends AppCompatActivity implements OnMenuItemClickLi
         } else {
             bundle.putString("activity", "AsyncFetch");
             pf.setArguments(bundle);
-        }
+        }*/
         fragmentManager = getSupportFragmentManager();
-        addFragment(pf, true, R.id.container);
+        addFragment(new PostFragment(), true, R.id.container);
     }
 
     private void initMenuFragment() {
